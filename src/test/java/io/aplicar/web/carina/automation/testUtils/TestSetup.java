@@ -6,6 +6,8 @@ import com.qaprosoft.carina.core.foundation.utils.R;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Amir Khan
  */
@@ -16,6 +18,7 @@ public class TestSetup extends AbstractTest {
     {
              driver = getDriver(DEFAULT);
             driver.get(R.CONFIG.get("url"));
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             return  driver;
     }
 
