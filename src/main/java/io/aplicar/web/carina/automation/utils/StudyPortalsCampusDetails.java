@@ -1,107 +1,138 @@
 package io.aplicar.web.carina.automation.utils;
 
+import java.util.List;
+
 public class StudyPortalsCampusDetails {
 
-    private String Study_Course_Name;
 
-    private String Study_Course_Summary;
-    private String Tuition_Fee_Value;
-    private String Duration_Value;
+    private String InstituteURL;
 
-    private String Study_Course_Type;
+    private String InstituteName;
 
-    private String Organisation_Name;
+    private String Country;
 
-    private String Organisation_Location;
+    private String State;
 
-    private String Organisation_Logo;
+    private String City;
 
-    private String studyOrganisationLink;
+    private String CourseName;
+
+    private String TuitionFee;
+
+    private String Description;
+
+    private String ProgramImage;
+
+    private String ProgramLevel;
+
+    private String StudyMode;
+
+    private String StudyType;
+
+    private String Duration;
+
+    private String StartDate;
+
+    private String IntakeDate;
 
 
 
-    public StudyPortalsCampusDetails(String Study_Course_Name,String Study_Course_Summary, String Tuition_Fee_Value, String Duration_Value,String Study_Course_Type, String Organisation_Name,String Organisation_Location,String Organisation_Logo, String studyOrganisationLink) {
-        this.Study_Course_Name = Study_Course_Name;
-        this.Study_Course_Summary=Study_Course_Summary;
-        this.Tuition_Fee_Value = Tuition_Fee_Value;
-        this.Duration_Value = Duration_Value;
-        this.Study_Course_Type = Study_Course_Type;
-        this.Organisation_Name = Organisation_Name;
-        this.Organisation_Location = Organisation_Location;
-        this.Organisation_Logo = Organisation_Logo;
-        this.studyOrganisationLink = studyOrganisationLink;
+    public StudyPortalsCampusDetails(String instituteURL, String instituteName, String country, String state, String city, String courseName, String tuitionFee, String description, String programImage, String programLevel, String studyMode, String studyType, String duration, String startDate, String intakeDate) {
+        InstituteURL = instituteURL;
+        InstituteName = instituteName;
+        Country = country;
+        State = state;
+        City = city;
+        CourseName = courseName;
+        TuitionFee = tuitionFee;
+        Description = description;
+        ProgramImage = programImage;
+        ProgramLevel = programLevel;
+        StudyMode = studyMode;
+        StudyType=studyType;
+        Duration = duration;
+        StartDate = startDate;
+        IntakeDate = intakeDate;
+    }
+
+    public String getCourseName() {
+        return CourseName;
+    }
+
+    public void setCourseName(String courseName) {
+        CourseName = courseName;
+    }
+
+    public String getTuitionFee() {
+        return TuitionFee;
+    }
+
+    public void setTuitionFee(String tuitionFee) {
+        TuitionFee = tuitionFee;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
     }
 
 
-    public String getStudy_Course_Name() {
-        return Study_Course_Name;
+    public String getProgramImage() {
+        return ProgramImage;
     }
 
-    public void setStudy_Course_Name(String study_Course_Name) {
-        Study_Course_Name = study_Course_Name;
+    public void setProgramImage(String programImage) {
+        ProgramImage = programImage;
     }
 
-    public String getStudy_Course_Summary() {
-        return Study_Course_Summary;
+    public String getProgramLevel() {
+        return ProgramLevel;
     }
 
-    public void setStudy_Course_Summary(String study_Course_Summary) {
-        Study_Course_Summary = study_Course_Summary;
+    public void setProgramLevel(String programLevel) {
+        ProgramLevel = programLevel;
     }
 
-    public String getTuition_Fee_Value() {
-        return Tuition_Fee_Value;
+    public String getStudyMode() {
+        return StudyMode;
     }
 
-    public void setTuition_Fee_Value(String tuition_Fee_Value) {
-        Tuition_Fee_Value = tuition_Fee_Value;
+    public void setStudyMode(String studyMode) {
+        StudyMode = studyMode;
     }
 
-    public String getDuration_Value() {
-        return Duration_Value;
+    public String getStudyType() {
+        return StudyType;
     }
 
-    public void setDuration_Value(String duration_Value) {
-        Duration_Value = duration_Value;
+    public void setStudyType(String studyType) {
+        StudyType = studyType;
     }
 
-    public String getStudy_Course_Type() {
-        return Study_Course_Type;
+    public String getDuration() {
+        return Duration;
     }
 
-    public void setStudy_Course_Type(String study_Course_Type) {
-        Study_Course_Type = study_Course_Type;
+    public void setDuration(String duration) {
+        Duration = duration;
     }
 
-    public String getOrganisation_Name() {
-        return Organisation_Name;
+    public String getStartDate() {
+        return StartDate;
     }
 
-    public void setOrganisation_Name(String organisation_Name) {
-        Organisation_Name = organisation_Name;
+    public void setStartDate(String startDate) {
+        StartDate = startDate;
     }
 
-    public String getOrganisation_Location() {
-        return Organisation_Location;
+    public String getIntakeDate() {
+        return IntakeDate;
     }
 
-    public void setOrganisation_Location(String organisation_Location) {
-        Organisation_Location = organisation_Location;
-    }
-
-    public String getOrganisation_Logo() {
-        return Organisation_Logo;
-    }
-
-    public void setOrganisation_Logo(String organisation_Logo) {
-        Organisation_Logo = organisation_Logo;
-    }
-
-    public String getStudyOrganisationLink() {
-        return studyOrganisationLink;
-    }
-
-    public void setStudyOrganisationLink(String studyOrganisationLink) {
-        this.studyOrganisationLink = studyOrganisationLink;
+    public void setIntakeDate(String intakeDate) {
+        IntakeDate = intakeDate;
     }
 }

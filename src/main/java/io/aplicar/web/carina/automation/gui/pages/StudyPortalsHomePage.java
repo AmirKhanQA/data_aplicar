@@ -5,6 +5,7 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import io.aplicar.web.carina.automation.utils.CampusDetails;
 import io.aplicar.web.carina.automation.utils.StudyPortalsCampusDetails;
+import io.aplicar.web.carina.automation.utils.StudyPortalsCampusDetails_2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,9 +15,8 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class StudyPortalsHomePage extends AbstractPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -25,13 +25,13 @@ public class StudyPortalsHomePage extends AbstractPage {
     private List<ExtendedWebElement> StudyCourses;
 
     @FindBy(xpath = "(//h2[@class='StudyName'])[%d]")
-    private ExtendedWebElement StudyCourseName;
+    private ExtendedWebElement courseName;
 
     @FindBy(xpath = "(//p[@class='Summary is-collapsed'])[%d]")
-    private ExtendedWebElement StudyCourseSummary;
+    private ExtendedWebElement description;
 
     @FindBy(xpath = "(//div[@class='TuitionValue'])[%d]")
-    private ExtendedWebElement TuitionFeeValue;
+    private ExtendedWebElement tuitionFee;
 
     @FindBy(xpath = "(//div[@class='DurationValue'])[%d]")
     private ExtendedWebElement DurationValue;
@@ -40,16 +40,16 @@ public class StudyPortalsHomePage extends AbstractPage {
     private ExtendedWebElement StudyCourseType;
 
     @FindBy(xpath = "(//strong[@class='OrganisationName'])[%d]")
-    private ExtendedWebElement OrganisationName;
+    private ExtendedWebElement instituteName;
 
-    @FindBy(xpath = "(//strong[@class='OrganisationLocation'])[%d]")
+    @FindBy(xpath = "//span[@class='LocationItems']")
     private ExtendedWebElement OrganisationLocation;
 
     @FindBy(xpath = "(//img[@class='OrganisationLogo'])[%d]")
     private ExtendedWebElement OrganisationLogo;
 
     @FindBy(xpath = "(//a[contains(@class,'StudyLink TextLink')])[1]")
-    private ExtendedWebElement StudyOrganisationLink;
+    private ExtendedWebElement instituteURL;
 
     @FindBy(xpath = "//button[@class='NextButton NavigatorButton']")
     private ExtendedWebElement NextButton;
@@ -74,24 +74,39 @@ public class StudyPortalsHomePage extends AbstractPage {
     private ExtendedWebElement LoginSubmitButton;
 
 
+    @FindBy(xpath = "//div[normalize-space()='Start date']/../div/div/div/time")
+    private ExtendedWebElement intakeDate;
+
+    @FindBy(xpath = "(//div[@data-target='general'])[1]")
+    private ExtendedWebElement startDate;
 
     public StudyPortalsHomePage(WebDriver driver) {
         super(driver);
     }
 
     public void GetTheCampusDetails() {
-        List<StudyPortalsCampusDetails> campusDetailsList = new ArrayList<>();
-        String Study_Course_Name;
-        String Study_Course_Summary;
-        String Tuition_Fee_Value;
-        String Duration_Value;
-        String Study_Course_Type;
-        String Organisation_Name;
-        String Organisation_Location;
-        String Organisation_Logo;
-        String studyOrganisationLink;
-        for (int j = 1; j <= 0; j++) {
-            NextButton.isElementPresent(10);
+        List<Map<String, Object>> campusDetailsList = new ArrayList<>();
+
+
+
+        String InstituteURL;
+        String CourseName;
+        String TuitionFee;
+        String Description;
+        String InstituteName;
+        String Country = null;
+        String State = null;
+        String City = null;
+        String ProgramImage;
+        String ProgramLevel;
+        String StudyMode;
+        String StudyType;
+        String Duration;
+        String StartDate = null;
+        String IntakeDate = null;
+
+        for (int j = 1; j <= 14; j++) {
+            NextButton.isElementPresent(40);
             NextButton.scrollTo();
             NextButton.click();
 //            waitUntil(ExpectedConditions.visibilityOf(SeeMoreButton.getElement()), 60);
@@ -100,29 +115,31 @@ public class StudyPortalsHomePage extends AbstractPage {
 //            SeeMoreButton.getElement().click();
         }
 
-            for (int i = 1; i <= StudyCourses.size(); i++) {
+            for (int i = 1; i <=StudyCourses.size(); i++) {
            /* if(SeeMoreButton.isElementPresent(5));
             {
                 //NextButton.click();
                 SeeMoreButton.scrollTo();
                 SeeMoreButton.click();
             }*/
-
                 String parentWindowHandle = driver.getWindowHandle();
 
-                StudyCourseName.format(i).scrollTo();
-                if (TuitionFeeValue.format(i).isElementPresent(5)) {
-                    Study_Course_Name = StudyCourseName.format(i).getText();
-                    Tuition_Fee_Value = TuitionFeeValue.format(i).getText();
-                    Study_Course_Summary=StudyCourseSummary.format(i).getText();
-                    Duration_Value = DurationValue.format(i).getText();
-                    Study_Course_Type = StudyCourseType.format(i).getText();
-                    Organisation_Name = OrganisationName.format(i).getText();
-                    Organisation_Location = OrganisationLocation.format(i).getText();
+                courseName.format(i).scrollTo();
+                if (tuitionFee.format(i).isElementPresent(5)) {
+                    CourseName = courseName.format(i).getText();
+                    TuitionFee = tuitionFee.format(i).getText();
+                    Description=description.format(i).getText();
+                    Duration = DurationValue.format(i).getText();
+                    String[] studyType = StudyCourseType.format(i).getText().split("/");
+                    ProgramLevel=studyType[0];
+                    StudyMode=studyType[1];
+                    StudyType=studyType[2];
+                    InstituteName = instituteName.format(i).getText();
+
                     String[] Organisation_Logo1 = OrganisationLogo.format(i).getAttribute("src").split("fit");
-                    Organisation_Logo = Organisation_Logo1[0].replaceAll("\\?", "");
+                    ProgramImage = Organisation_Logo1[0].replaceAll("\\?", "");
                     driver.manage().deleteAllCookies();
-                    StudyCourseName.format(i).click();
+                    courseName.format(i).click();
 
 
                     if (SignInButton.isElementPresent(5)) {
@@ -133,13 +150,26 @@ public class StudyPortalsHomePage extends AbstractPage {
                         LoginSubmitButton.click();
                     }
                     switchTONextTab();
-                    if(StudyOrganisationLink.isElementPresent(7)) {
-                        StudyOrganisationLink.scrollTo();
-                        StudyOrganisationLink.click();
+                    if(instituteURL.isElementPresent(10)) {
+                        instituteURL.scrollTo();
+                        instituteURL.click();
+                        OrganisationLocation.scrollTo();
+                        if(OrganisationLocation.isElementPresent(10)) {
+                            String[] organisationLocation = OrganisationLocation.getText().split(",");
+                            System.out.println("OrganisationLocation is ->" + OrganisationLocation.getText());
+                            City = organisationLocation[0];
+                            State = organisationLocation[1];
+                            Country = organisationLocation[2];
+                        }
+
+                        if (startDate.isElementPresent() &&intakeDate.isElementPresent()) {
+                            IntakeDate= intakeDate.getText();
+                            StartDate = startDate.getText();
+                        }
                         switchTONextTab();
                     }
 
-                        studyOrganisationLink = driver.getCurrentUrl();
+                    InstituteURL = driver.getCurrentUrl();
 
 
                     Set<String> allWindowHandles = driver.getWindowHandles();
@@ -151,9 +181,29 @@ public class StudyPortalsHomePage extends AbstractPage {
                     }
 
                     driver.switchTo().window(parentWindowHandle);
+                    Map<String, Object> campusMap = new HashMap<>();
+                    Map<String, Object> campusDetailsMap = new HashMap<>();
 
+                    campusDetailsMap.put("instituteName", InstituteName);
+                    campusDetailsMap.put("instituteURL", InstituteURL);
+                    campusDetailsMap.put("city", City);
+                    campusDetailsMap.put("state", State);
+                    campusDetailsMap.put("country", Country);
+                    campusMap.put("duration", Duration);
+                    campusMap.put("description", Description);
+                    campusMap.put("startDate", StartDate);
+                    campusMap.put("programImage", ProgramImage);
+                    campusMap.put("programLevel", ProgramLevel);
+                    campusMap.put("studyType", StudyType);
+                    campusMap.put("studyMode", StudyMode);
+                    campusMap.put("intakeDate", IntakeDate);
+                    campusMap.put("courseName", CourseName);
+                    campusMap.put("tuitionFee", TuitionFee);
+                    campusDetailsList.add(campusDetailsMap);
+                    campusDetailsList.add(campusMap);
 
-                    campusDetailsList.add(new StudyPortalsCampusDetails(Study_Course_Name,Study_Course_Summary, Tuition_Fee_Value, Duration_Value, Study_Course_Type, Organisation_Name, Organisation_Location, Organisation_Logo, studyOrganisationLink));
+                    //campusDetailsList.add(new StudyPortalsCampusDetails(InstituteURL,InstituteName,Country,State,City,CourseName,  TuitionFee,  Description,ProgramImage,ProgramLevel,StudyMode,StudyType,Duration,StartDate,IntakeDate));
+
                 }
 
                 String jsonFile = "C:\\Users\\amir.khan1\\IdeaProjects\\data_aplicar\\src\\test\\resources\\xls\\studyPortalsData.json";

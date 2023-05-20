@@ -18,7 +18,6 @@ public class AUTO_TS_02_Add_Study_Portals_Campus_Details extends TestSetup {
         Reporter.log("TC_AUTO_TC_01 -Print and Add Campus Details of Study_Portals", true);
         StudyPortalsHomePage studyPortalsHomePage = new StudyPortalsHomePage(driver);
         studyPortalsHomePage.GetTheCampusDetails();
-
     }
 
 }
